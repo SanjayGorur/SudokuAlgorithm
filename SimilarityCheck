@@ -1,0 +1,57 @@
+import random
+from math import sqrt
+
+vals = [' Q ', '___']
+num = 4
+
+def create_board(board):
+  """Puts a flat list into 2D Array"""
+  output = []
+  for i in range(num):
+      output.append(board[num*i: num*(i+1)])
+  return output
+
+def print_board(board):
+  for row in board:
+    for thing in row:
+      print(thing,end = ' ')
+    print()
+
+def row(board, r):
+  """Generates terms in row r"""
+  return [board[r][i] for i in range(num)]
+
+def col(board, c):
+  """Generates terms in row r"""
+  return [board[i][c] for i in range(num)]
+
+def diagdown(board):
+  """check down diagonals for multiple Q's
+  returns True if there are multiple Q's"""
+  for k in range(-(num-1), num):
+    diag = [board[r][c] for r in range(num) for c in range(num) 
+             if k == r - c]
+    if diag.count(' Q ') > 1:
+      print("K: ", k)
+      return False
+  for j in range(2*num - 1):
+    diag = [board[r][c] for r in range(num) for c in range(num) 
+            if j == r + c]
+    if diag.count(' Q ') > 1:
+      print("J: ", j)
+      return False
+  return True
+
+
+
+
+
+b = [random.choice(vals) for i in range(num**2)]
+#print("b: ", b)
+board = create_board(b)
+print_board(board)
+print()
+print(row(board,1))
+print(col(board,2))
+diagdown(board)
+
